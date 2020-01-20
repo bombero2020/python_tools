@@ -5,7 +5,8 @@ debug__ = False
 
 
 def get_all_data():
-    """ 'main': { 'humidity': 72,
+    """ 'main': { 'feels_like': 272.26,
+                  'humidity': 72,
                   'pressure': 1017,
                   'temp': 278.05, in Kelvins
                   'temp_max': 280.37,
@@ -20,11 +21,14 @@ def get_all_data():
 def get_temperature():
     r = get_all_data()
     if debug__ is True:
+        print('##################################')
+        print('time: ', time.strftime('%H:%M:%S'))
         pprint(r.json()['main'])
     temp_celcius = r.json()['main']['temp']-273.15
     relative_hum = r.json()['main']['humidity']
-    temp.config(text="Temp: {} ºC \n Hum: {}%".format(round(temp_celcius), relative_hum))
-    temp.after(3600, get_temperature)
+    feels_like = r.json()['main']['feels_like']-273.15
+    temp.config(text="Temp: {} ºC \n Hum: {}% \n Sen: {} ºC".format(round(temp_celcius), relative_hum, round(feels_like)))
+    temp.after(1000*3600, get_temperature)
     # print(temp_celcius)
     # return temp_celcius
 
@@ -49,10 +53,11 @@ def tick():
 
 
 root = Tk()
-clock = Label(root, font=("times", 85, "bold"), bg="white")
+root.configure(background='black')
+clock = Label(root, font=("times", 85, "bold"), fg="white", bg="black")
 clock.grid(row=0, column=1)
 tick()
-temp = Label(root, font=("times", 65, "bold"), bg="white")
+temp = Label(root, font=("times", 65, "bold"), fg="white", bg="black")
 temp.grid(row=1, column=1)
 get_temperature()
 
