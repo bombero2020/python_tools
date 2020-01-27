@@ -7,7 +7,7 @@ from tkinter import *
 import hashlib
 
 root = tk.Tk()
-root.geometry('600x100') # anchura x altura
+root.geometry('700x400') # anchura x altura
 root.configure(bg = 'beige')
 root.title('Hashing Coorp.')
 
@@ -28,7 +28,7 @@ def hide_text():
 
 show_text = BooleanVar()
 show_text.set(False)  # set check state
-chk = Checkbutton(root, text='Ver texto', var=show_text, command=hide_text)
+chk = Checkbutton(root, text='Ocultar texto', var=show_text, command=hide_text)
 chk.grid(row=0, column=2)
 label2 = tk.Label(root, text="------>", padx=10, pady=10)
 label2.grid(row=0, column=3)
