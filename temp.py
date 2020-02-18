@@ -12,23 +12,41 @@ def get_all_data():
                   'temp_max': 280.37,
                   'temp_min': 276.48},
     """
-    r = requests.get('http://api.openweathermap.org/data/2.5/weather?q=Madrid,es&APPID=45d2d8a0c4c58025df4d1f0472d9e1d1')
+    r = ''
+    error = None
+    try:
+        r = requests.get('http://api.openweathermap.org/data/2.5/weather?q=Madrid,es&APPID=45d2d8a0c4c58025df4d1f0472d9e1d1')
+    except Exception as e:
+        error = e
     if debug__ is True:
-        pprint(r.json())
-    return r
+        if error:
+            print(error)
+        else:
+            pprint(r.json())
+    if error:
+        return None
+    else:
+        return r
 
 
 def get_temperature():
     r = get_all_data()
-    if debug__ is True:
+    if debug__ is True and r is not None:
         print('##################################')
         print('time: ', time.strftime('%H:%M:%S'))
         pprint(r.json()['main'])
-    temp_celcius = r.json()['main']['temp']-273.15
-    relative_hum = r.json()['main']['humidity']
-    feels_like = r.json()['main']['feels_like']-273.15
-    temp.config(text="Temp: {} ºC \n Hum: {}% \n Sen: {} ºC".format(round(temp_celcius), relative_hum, round(feels_like)))
-    temp.after(1000*3600, get_temperature)
+    if r is None:
+        temp_celcius = ''
+        relative_hum = ''
+        feels_like = ''
+        temp.config(text="Temp: {} ºC \n Hum: {}% \n Sen: {} ºC".format(temp_celcius, relative_hum, feels_like))
+        temp.after(1000 * 3600, get_temperature)
+    else:
+        temp_celcius = r.json()['main']['temp']-273.15
+        relative_hum = r.json()['main']['humidity']
+        feels_like = r.json()['main']['feels_like']-273.15
+        temp.config(text="Temp: {} ºC \n Hum: {}% \n Sen: {} ºC".format(round(temp_celcius), relative_hum, round(feels_like)))
+        temp.after(1000*3600, get_temperature)
     # print(temp_celcius)
     # return temp_celcius
 
