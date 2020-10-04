@@ -1,4 +1,4 @@
-import requests
+import requests, socket
 from pprint import pprint
 
 debug__ = False
@@ -70,6 +70,18 @@ def tick():
     clock.after(200, tick)
 
 
+def get_IP_n_hostname():
+    ## getting the hostname by socket.gethostname() method
+    hostname = socket.gethostname()
+    ## getting the IP address using socket.gethostbyname() method
+    ip_address = socket.gethostbyname(hostname)
+    ## printing the hostname and ip_address
+    print(f"Hostname: {hostname}")
+    print(f"IP Address: {ip_address}")
+    ip.config(text="IP: {} ".format(ip_address))
+    ip.after(1000 * 3600, get_IP_n_hostname)
+
+
 root = Tk()
 root.configure(background='black')
 clock = Label(root, font=("times", 85, "bold"), fg="white", bg="black")
@@ -78,7 +90,9 @@ tick()
 temp = Label(root, font=("times", 55, "bold"), fg="white", bg="black")
 temp.grid(row=1, column=1)
 get_temperature()
-
+ip = Label(root, font=("times", 25, "bold"), fg="white", bg="black")
+ip.grid(row=2, column=1)
+get_IP_n_hostname()
 
 root.mainloop()
 
