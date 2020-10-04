@@ -76,8 +76,8 @@ def get_IP_n_hostname():
     ## getting the IP address using socket.gethostbyname() method
     ip_address = socket.gethostbyname(hostname)
     ## printing the hostname and ip_address
-    print(f"Hostname: {hostname}")
-    print(f"IP Address: {ip_address}")
+    print("Hostname: {}".format(hostname))
+    print("IP Address: {}".format(ip_address))
     ip.config(text="IP: {} ".format(ip_address))
     ip.after(1000 * 3600, get_IP_n_hostname)
 
