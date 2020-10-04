@@ -84,10 +84,10 @@ def get_IP_n_hostname():
 
 root = Tk()
 root.configure(background='black')
-clock = Label(root, font=("times", 85, "bold"), fg="white", bg="black")
+clock = Label(root, font=("times", 65, "bold"), fg="white", bg="black")
 clock.grid(row=0, column=1)
 tick()
-temp = Label(root, font=("times", 55, "bold"), fg="white", bg="black")
+temp = Label(root, font=("times", 45, "bold"), fg="white", bg="black")
 temp.grid(row=1, column=1)
 get_temperature()
 # ip = Label(root, font=("times", 25, "bold"), fg="white", bg="black")
