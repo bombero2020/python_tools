@@ -76,8 +76,8 @@ def get_IP_n_hostname():
     ## getting the IP address using socket.gethostbyname() method
     ip_address = socket.gethostbyname(hostname)
     ## printing the hostname and ip_address
-    print("Hostname: {}".format(hostname))
-    print("IP Address: {}".format(ip_address))
+    # print("Hostname: {}".format(hostname))
+    # print("IP Address: {}".format(ip_address))
     ip.config(text="IP: {} ".format(ip_address))
     ip.after(1000 * 3600, get_IP_n_hostname)
 
@@ -90,9 +90,9 @@ tick()
 temp = Label(root, font=("times", 55, "bold"), fg="white", bg="black")
 temp.grid(row=1, column=1)
 get_temperature()
-ip = Label(root, font=("times", 25, "bold"), fg="white", bg="black")
-ip.grid(row=2, column=1)
-get_IP_n_hostname()
+# ip = Label(root, font=("times", 25, "bold"), fg="white", bg="black")
+# ip.grid(row=2, column=1)
+# get_IP_n_hostname()
 
 root.mainloop()
 
